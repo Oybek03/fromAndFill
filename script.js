@@ -34,17 +34,27 @@
 // console.log("sync2");
 
 let a = async function (name1, name2, name3) {
-  const data = await Promise.all([
+  const data = Promise.all([
     fetch(`https://restcountries.com/v2/name/${name1}`),
     fetch(`https://restcountries.com/v2/name/${name2}`),
     fetch(`https://restcountries.com/v2/name/${name3}`),
   ]);
-  console.log(data);
-  data.forEach((val) => {
-    val.json().then((res) => {
-      console.log(res[0].capital);
+  // console.log(data);
+  // data.forEach((val) => {
+  //   val.json().then((res) => {
+  //     console.log(res[0].capital);
+  //   });
+  // });
+
+  let timeout = function (sec) {
+    return new Promise(function (resolve) {
+      setTimeout(function () {
+        resolve(new Error("internet sekin"));
+      }, sec * 1000);
     });
-  });
+  };
+  const data1 = await Promise.race([data, timeout(0.01)]);
+  console.log(data1);
 };
 
 a("uzbekistan", "usa", "kz");
