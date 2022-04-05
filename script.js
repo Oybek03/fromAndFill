@@ -22,8 +22,29 @@
 
 // console.log(arr2);
 
+// console.log("sync1");
+// setTimeout(function () {
+//   console.log("async");
+// }, 0);
 
+// Promise.resolve("promise").then(function (res) {
+//   console.log(res);
+// });
 
-const func = async function(){
-  
-}
+// console.log("sync2");
+
+let a = async function (name1, name2, name3) {
+  const data = await Promise.all([
+    fetch(`https://restcountries.com/v2/name/${name1}`),
+    fetch(`https://restcountries.com/v2/name/${name2}`),
+    fetch(`https://restcountries.com/v2/name/${name3}`),
+  ]);
+  console.log(data);
+  data.forEach((val) => {
+    val.json().then((res) => {
+      console.log(res[0].capital);
+    });
+  });
+};
+
+a("uzbekistan", "usa", "kz");
