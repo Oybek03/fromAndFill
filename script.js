@@ -53,7 +53,7 @@ let a = async function (name1, name2, name3) {
       }, sec * 1000);
     });
   };
-  const data1 = await Promise.race([data, timeout(0.01)]);
+  const data1 = await Promise.race([data, timeout(0.1)]);
   console.log(data1);
 };
 
